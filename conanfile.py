@@ -18,6 +18,7 @@ class Recipe(ConanFile):
         self.description = package_json['description']
     
     # Binary configuration
+    package_type = "header-library"
     settings = "os", "compiler", "build_type", "arch"
     
     # Export files

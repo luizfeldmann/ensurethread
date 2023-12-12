@@ -1,4 +1,5 @@
 #include "ensurethread.hpp"
+#include <atomic>
 #include <gtest/gtest.h>
 
 //! Tests if the thread check on the same thread returns true
@@ -37,7 +38,7 @@ TEST(wait, direct)
     } threadChecker;
 
     //! Used to wait while the other thread works
-    bool bReady = false;
+    std::atomic_bool bReady = false;
 
     std::thread other([&et, &bReady, &threadChecker]()
         {
@@ -92,7 +93,7 @@ TEST(wait, macro)
     EXPECT_EQ(threadChecker.Work(&et, 1, 2), 3);
 
     //! Used to wait while the other thread works
-    bool bReady = false;
+    std::atomic_bool bReady = false;
 
     // Perform in some other thread
     std::thread other([&threadChecker, &et, &bReady]()
